@@ -2,40 +2,53 @@ function verifNum(ch)
 {
     if(ch.length!=8)
     {
-        test=false;
+        tester=false;
     }
     else
     {
         i=0;
-        test=true;
-        while( (i<ch.length) && (test==true) )
+        tester=true;
+        while( (i<ch.length) && (tester==true) )
         {
             if((ch.charAt(i)<"0") || (ch.charAt(i)>"9"))
             {
-                test=false;
+                tester=false;
             }
         i++;
     }
 }
-return(test);
+return(tester);
 }
 function verifNom(ch)
 {
     ch=ch.toUpperCase();        
     i=0;
-    test=true;
-    while( (i<ch.length) && (test==true) )
+    tester=true;
+    while( (i<ch.length) && (tester==true) )
     {
         if(((ch.charAt(i)<"A") || (ch.charAt(i)>"Z")) && (ch.charAt(i)!=" "))
         {
-            test=false;
+            tester=false;
         }
         i++;
     }
-    return(test);
+    return(tester);
 }
 function test()
 
 {
-    alert("tt");
+    nom=document.getElementById("nom").value;
+    prenom=document.getElementById("prenom").value;
+    cin=document.getElementById("cin").value;
+    if(!verifNum(cin))
+    {
+        alert("verifier votre cin");
+    }else if((!verifNom(nom)) ||(!verifNom(prenom)) )
+            {
+                alert("verifier votre nom ou prenom");
+            }
+            else
+            {
+                f1.submit();
+            }
 }
