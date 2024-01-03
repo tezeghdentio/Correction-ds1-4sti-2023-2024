@@ -1,50 +1,48 @@
 <?php
 error_reporting(E_ERROR | E_PARSE);
 //récupération des variabls depuis le formulaire à l'aide de la méthode post du formulaire
-$login=$_POST["login"];
-$passwd=$_POST["passwd"];
+$cin=$_POST["cin"];
 $nom=$_POST["nom"];
 $prenom=$_POST["prenom"];
-$datenais=$_POST["date_naiss"];
-$heure=$_POST["heure"];
-$email=$_POST["mail"];
-$sexe=$_POST["sexe"];
-$foot=$_POST["foot"];
-$hand=$_POST["hand"];
-$tennis=$_POST["tennis"];
-$pays=$_POST["pays"];
-$pays1=$_POST["pays1"];
-$remarques=$_POST["remarques"];
+$ex1=(int)$_POST["ex1"];
+$ex2=(int)$_POST["ex2"];
+$etape1=(int)$_POST["etape1"];
+$etape2=(int)$_POST["etape2"];
+$etape4=(int)$_POST["etape4"];
+//calcul de la note
+$note=0;
+$ex3=0;
+if($etape1==1)
+{
+    $ex3=$ex3+4;
+}
+if($etape2==3)
+{
+    $ex3=$ex3+4;
+}
+if($etape4==2)
+{
+    $ex3=$ex3+4;
+}
+$note=$ex1+$ex2+$ex3;
+//echo $ex1.$ex2.$ex3.$note;
 
-if(!isset($_POST["foot"]))
-{
-    $foot="N";
-}
-if(!isset($_POST["hand"]))
-{
-    $hand="N";
-}
-if(!isset($tennis))
-{
-    $tennis="N";
-}
-//echo $foot.$hand.$tennis;
 // L' instruction require prend tout le texte/code/balisage qui existe dans le fichier spécifié et le copie dans le fichier qui utilise l'instruction include.
 require("config.php");
 //La fonction connect() / mysqli_connect() ouvre une nouvelle connexion au serveur MySQL.
 $conn=mysqli_connect($server,$username,$password,$db) or die ("Probleme de connxion au serveur ou à la base de données");
 // Construction de la requete
-$sql="insert into  users values('$login','$passwd','$nom','$prenom','$datenais','$heure','$email','$sexe','$foot','$hand','$tennis','$pays','$remarques');";
+$sql="insert into  examen values('$cin','$nom','$prenom',$note);";
 //echo $sql;
 //execution de la requete
 mysqli_query($conn,$sql);
 if(mysqli_affected_rows($conn)>0)
 {
-    echo "Inscription effectuée par succées";
+    echo "examen enregistré par succées";
 }
 else
 {
-    echo "utilisateur existant";
+    echo "condidat  existant";
 }
 mysqli_close($conn);
 
